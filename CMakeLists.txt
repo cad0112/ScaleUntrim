@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1)
-project(QuadriFlow LANGUAGES CXX)
+project(ScaleUntrim LANGUAGES CXX)
 
 option(BUILD_PERFORMANCE_TEST "More subdivisition for performance test" OFF)
 option(BUILD_LOG "Enable verbose log" OFF)
@@ -12,13 +12,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 set(Boost_USE_STATIC_LIBS ON)
 find_package(Eigen REQUIRED)
 find_package(Boost REQUIRED)
-
-# manually include OCC, you can also do it in VS
-set(OpenCASCADE_PATH "/Users/xiaodongwei/Documents/projects/opencascade/build/release")
-set(OpenCASCADE_INCLUDE_DIR "${OpenCASCADE_PATH}/include/opencascade")
-file(GLOB OpenCASCADE_LIBRARIES 
-  "${OpenCASCADE_PATH}/lib/*.dylib")
-include_directories(${OpenCASCADE_INCLUDE_DIR})
+find_package(OpenCASCADE REQUIRED)
 
 if (BUILD_GUROBI)
     find_package(GUROBI REQUIRED)
@@ -125,12 +119,3 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     ${LEMON_LIBRARIES}
     ${GUROBI_LIBRARIES}
     ${OpenCASCADE_LIBRARIES})
-
-# # Manually set the installation path here
-# set(CMAKE_INSTALL_PREFIX 
-#     "/Users/xiaodongwei/Documents/projects/quadriflow/build/release")
-
-# install(TARGETS ${CMAKE_PROJECT_NAME} DESTINATION lib)
-# install(FILES ${QuadriFlow_headers} DESTINATION include)
-
-

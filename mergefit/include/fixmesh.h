@@ -12,7 +12,13 @@ using namespace std;
 class fIxmesh {
 public:
 
-	void Fixmesh(load& mRes, int local_layer, int iteration);
+	void Fixmesh(load& mRes, int fix_hole, int local_layer, int iteration);
+
+protected:
+
+	void computeboundary(Eigen::MatrixXd ver, Eigen::MatrixXi fac, Eigen::VectorXi &e2e);
+
+	void change_normal(load& mRes, vector<int> f); 
 
 };
 

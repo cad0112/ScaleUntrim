@@ -69,6 +69,13 @@ public:
 		return negate * (double)3.14159265358979323846 + ret;
 	}
 
+protected:
+
+	void Loader_errortri(string filename, int p1, int p2); 
+	void converse(std::string filename, std::string filename1);
+	void ComputeE2E();
+
+
 };
 
 #endif

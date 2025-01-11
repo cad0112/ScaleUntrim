@@ -63,6 +63,25 @@ class  Optimizer {
     static void optimize_orientations_cuda(Hierarchy& mRes);
     static void optimize_positions_cuda(Hierarchy& mRes);
 #endif
+
+protected:
+    static void sin_fft_boundary(std::vector<Vector3d> &O_compact, std::vector<int> boundary_o, std::vector<std::vector<std::vector<int>>> &patch_compact, std::vector<int> &valence, std::vector<std::vector<std::vector<int>>> &relative_point, std::vector<std::vector<int>> &layer, std::vector<std::vector<std::vector<int>>> &collapse_patch, int v, std::vector<int> &all_singularity, std::vector<int> &thr_for_sin_patch);
+
+    static void sin_mismatching(std::vector<std::vector<int>> &need_collapse_part, std::vector<std::vector<std::vector<int>>> &patch_compact, std::vector<Vector3d> &O_compact, std::vector<std::vector<std::vector<int>>> &relative_point, std::vector<std::vector<int>> &layer, std::vector<int> &need_collapse, std::vector<int> &all_singularity, std::vector<std::vector<std::vector<int>>> &collapse_patch, int n, std::vector<std::vector<int>> &double_q, std::vector<int> &boundary_o);
+
+    static void sin_ft(std::vector<Vector3d>& O_compact,std::vector<std::vector<std::vector<int>>>& patch_compact,std::vector<int>& valence,std::vector<std::vector<std::vector<int>>>& relative_point,std::vector<std::vector<int>>& layer,std::vector<std::vector<std::vector<int>>>& collapse_patch, int v, int v1,int v2, std::vector<int>& all_singularity,std::vector<int>& thr_for_sin_patch);
+
+    static void sin_fft(std::vector<Vector3d>& O_compact,std::vector<std::vector<std::vector<int>>>& patch_compact,std::vector<int>& valence,std::vector<std::vector<std::vector<int>>>& relative_point,std::vector<std::vector<int>>& layer,std::vector<std::vector<std::vector<int>>>& collapse_patch, int v,std::vector<int>& all_singularity, std::vector<int>& thr_for_sin_patch);
+
+    static void collapse_boundary(std::vector<Vector3d> &O_compact, std::vector<std::vector<std::vector<int>>> &patch_compact, std::vector<int> &valence, std::vector<std::vector<std::vector<int>>> &relative_point, std::vector<std::vector<int>> &layer, std::vector<std::vector<std::vector<int>>> &collapse_patch, std::vector<int> &all_singularity);
+
+    static void sin_ftt(std::vector<Vector3d> &O_compact, std::vector<std::vector<std::vector<int>>> &patch_compact, std::vector<int> &valence, std::vector<std::vector<std::vector<int>>> &relative_point, std::vector<std::vector<int>> &layer, std::vector<std::vector<std::vector<int>>> &collapse_patch, int v, std::vector<int> &all_singularity, std::vector<int> &thr_for_sin_patch);
+
+    static void match_patch(int i, int j, int v, std::vector<int>& edge_collapse,std::vector<std::vector<std::vector<int>>>& collapse_patch,std::vector<std::vector<std::vector<int>>>& patch_compact,std::vector<std::vector<std::vector<int>>>& assist_patch,std::vector<int>& can, std::vector<int>& relative_can,std::vector<int>& relative_double, std::vector<int>& double_following,std::vector<int>& thenum, std ::vector<int>& renew);
+
+    static void update_O(std::vector<Vector3d>& O_compact,std::vector<std::vector<std::vector<int>>>& patch_compact,std::vector<int>& all_singularity, std::vector<int>& boundary_o);
+
+    static void size_three(std::vector<std::vector<std::vector<int>>>& patch_compact, std::vector<Vector3d>& O_compact, std::vector<int>& all_singularity, std::vector<std::vector<std::vector<int>>>& collapse_patch, std::vector<int>& boundary_o);
 };
 
 #ifdef WITH_CUDA

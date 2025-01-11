@@ -201,7 +201,8 @@ int MergeFit::fix_tri_mesh(const std::string &tri_obj, const std::string &tri_fi
     load load_mesh;
     load_mesh.Loader(tri_obj);
     load_mesh.initialize();
-    fix_mesh.Fixmesh(load_mesh, local_layer, smooth_iter);
+    int fix_hole = 1; 
+    fix_mesh.Fixmesh(load_mesh, fix_hole, local_layer, smooth_iter);
     load_mesh.Outer(tri_fix.c_str(), 1);
     return 0;
 }
