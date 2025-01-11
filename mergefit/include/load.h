@@ -1,4 +1,4 @@
-#pragma execution_character_set("utf-8")
+
 
 #ifndef __LOAD_H
 #define __LOAD_H

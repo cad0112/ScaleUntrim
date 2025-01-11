@@ -100,72 +100,72 @@ double compute_area(const char* in_file)
 void triangular(const char* input_file, const char* output_file, double ratio = 0.0001)
 {
 
-	//std::string a = input_file;
-	//int num = a.find_last_of('.');
-	//std::string b = a.substr(num + 1);
-	//if (b == "step" || b == "stp")
-	//{
-	//	// Create a STEPControl_Reader object
-	//	STEPControl_Reader reader;
-	//	// Read the file and check the status
-	//	IFSelect_ReturnStatus status = reader.ReadFile(input_file);
-	//	// Transfer the shape from the file to the process
-	//	reader.TransferRoots();
-	//	// Get the shape from the process
-	//	TopoDS_Shape  shape = reader.OneShape();
+	std::string a = input_file;
+	int num = a.find_last_of('.');
+	std::string b = a.substr(num + 1);
+	if (b == "step" || b == "stp")
+	{
+		// Create a STEPControl_Reader object
+		STEPControl_Reader reader;
+		// Read the file and check the status
+		IFSelect_ReturnStatus status = reader.ReadFile(input_file);
+		// Transfer the shape from the file to the process
+		reader.TransferRoots();
+		// Get the shape from the process
+		TopoDS_Shape  shape = reader.OneShape();
 
-	//	Bnd_Box box;
-	//	BRepBndLib::Add(shape, box);
-	//	Standard_Real xmin, ymin, zmin, xmax, ymax, zmax;
-	//	box.Get(xmin, ymin, zmin, xmax, ymax, zmax);
-	//	Standard_Real dx = xmax - xmin;
-	//	Standard_Real dy = ymax - ymin;
-	//	Standard_Real dz = zmax - zmin;
-	//	Standard_Real diagonal = sqrt(dx * dx + dy * dy + dz * dz);
-	//	std::cout << "diagonal = " << diagonal << std::endl;
+		Bnd_Box box;
+		BRepBndLib::Add(shape, box);
+		Standard_Real xmin, ymin, zmin, xmax, ymax, zmax;
+		box.Get(xmin, ymin, zmin, xmax, ymax, zmax);
+		Standard_Real dx = xmax - xmin;
+		Standard_Real dy = ymax - ymin;
+		Standard_Real dz = zmax - zmin;
+		Standard_Real diagonal = sqrt(dx * dx + dy * dy + dz * dz);
+		std::cout << "diagonal = " << diagonal << std::endl;
 
-	//	const Standard_Real linear_deflection = diagonal * ratio; // The maximum distance between the original surface and the mesh
-	//	const Standard_Real angular_deflection = 50; // The maximum angle between two adjacent triangles
-	//	// Generate the mesh using BRepMesh_IncrementalMesh
-	//	BRepMesh_IncrementalMesh mesher(shape, linear_deflection, Standard_False, angular_deflection, Standard_True);
-	//	mesher.Perform();
-	//	// Write the mesh to the stl file using StlAPI_Writer
-	//	StlAPI_Writer writer;
-	//	writer.Write(shape, output_file);
-	//}
-	//else if (b == "igs" || b == "iges")
-	//{
-	//	IGESControl_Reader reader;
-	//	// Read the file and check the status
-	//	IFSelect_ReturnStatus status = reader.ReadFile(input_file);
-	//	// Transfer the shape from the file to the process
-	//	reader.TransferRoots();
-	//	// Get the shape from the process
-	//	TopoDS_Shape  shape = reader.OneShape();
+		const Standard_Real linear_deflection = diagonal * ratio; // The maximum distance between the original surface and the mesh
+		const Standard_Real angular_deflection = 50; // The maximum angle between two adjacent triangles
+		// Generate the mesh using BRepMesh_IncrementalMesh
+		BRepMesh_IncrementalMesh mesher(shape, linear_deflection, Standard_False, angular_deflection, Standard_True);
+		mesher.Perform();
+		// Write the mesh to the stl file using StlAPI_Writer
+		StlAPI_Writer writer;
+		writer.Write(shape, output_file);
+	}
+	else if (b == "igs" || b == "iges")
+	{
+		IGESControl_Reader reader;
+		// Read the file and check the status
+		IFSelect_ReturnStatus status = reader.ReadFile(input_file);
+		// Transfer the shape from the file to the process
+		reader.TransferRoots();
+		// Get the shape from the process
+		TopoDS_Shape  shape = reader.OneShape();
 
-	//	Bnd_Box box;
-	//	BRepBndLib::Add(shape, box);
-	//	Standard_Real xmin, ymin, zmin, xmax, ymax, zmax;
-	//	box.Get(xmin, ymin, zmin, xmax, ymax, zmax);
-	//	Standard_Real dx = xmax - xmin;
-	//	Standard_Real dy = ymax - ymin;
-	//	Standard_Real dz = zmax - zmin;
-	//	Standard_Real diagonal = sqrt(dx * dx + dy * dy + dz * dz);
-	//	std::cout << "diagonal = " << diagonal << std::endl;
+		Bnd_Box box;
+		BRepBndLib::Add(shape, box);
+		Standard_Real xmin, ymin, zmin, xmax, ymax, zmax;
+		box.Get(xmin, ymin, zmin, xmax, ymax, zmax);
+		Standard_Real dx = xmax - xmin;
+		Standard_Real dy = ymax - ymin;
+		Standard_Real dz = zmax - zmin;
+		Standard_Real diagonal = sqrt(dx * dx + dy * dy + dz * dz);
+		std::cout << "diagonal = " << diagonal << std::endl;
 
-	//	const Standard_Real linear_deflection = diagonal * ratio; // The maximum distance between the original surface and the mesh
-	//	const Standard_Real angular_deflection = 50; // The maximum angle between two adjacent triangles
-	//	// Generate the mesh using BRepMesh_IncrementalMesh
-	//	BRepMesh_IncrementalMesh mesher(shape, linear_deflection, Standard_False, angular_deflection, Standard_True);
-	//	mesher.Perform();
-	//	// Write the mesh to the stl file using StlAPI_Writer
-	//	StlAPI_Writer writer;
-	//	writer.Write(shape, output_file);
-	//}
-	//else
-	//{
-	//	std::cout << "Unsupported file formats, please check" << std::endl;
-	//}
+		const Standard_Real linear_deflection = diagonal * ratio; // The maximum distance between the original surface and the mesh
+		const Standard_Real angular_deflection = 50; // The maximum angle between two adjacent triangles
+		// Generate the mesh using BRepMesh_IncrementalMesh
+		BRepMesh_IncrementalMesh mesher(shape, linear_deflection, Standard_False, angular_deflection, Standard_True);
+		mesher.Perform();
+		// Write the mesh to the stl file using StlAPI_Writer
+		StlAPI_Writer writer;
+		writer.Write(shape, output_file);
+	}
+	else
+	{
+		std::cout << "Unsupported file formats, please check" << std::endl;
+	}
 	
 	
 };

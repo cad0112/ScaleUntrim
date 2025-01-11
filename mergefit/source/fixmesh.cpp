@@ -361,46 +361,46 @@ void fIxmesh::Fixmesh(load& mRes, int fix_hole, int local_layer, int iteration) 
             boundarypoint.push_back(boundaryedge[i]);
         }
     }*/
-    ofstream os("C:\\Users\\Administrator\\Desktop\\1\\plate\\test1.vtk");
-    os << "# vtk DataFile Version 2.0"
-        << "\n";
-    os << "name, Created by Gmsh 4.11.2-git-c089f96d2 "
-        << "\n";
-    os << "ASCII"
-        << "\n";
-    os << "DATASET UNSTRUCTURED_GRID"
-        << "\n";
-    os << "POINTS"
-        << " " << boundarypoint.size() << " "
-        << "double"
-        << "\n";
-    for (int i = 0; i < boundarypoint.size(); ++i) {
-        double t1, t2, t3;
-        int u = boundarypoint[i];
-        t1 = new_v.col(u)[0];
-        t2 = new_v.col(u)[1];
-        t3 = new_v.col(u)[2];
+    // ofstream os("C:\\Users\\Administrator\\Desktop\\1\\plate\\test1.vtk");
+    // os << "# vtk DataFile Version 2.0"
+    //     << "\n";
+    // os << "name, Created by Gmsh 4.11.2-git-c089f96d2 "
+    //     << "\n";
+    // os << "ASCII"
+    //     << "\n";
+    // os << "DATASET UNSTRUCTURED_GRID"
+    //     << "\n";
+    // os << "POINTS"
+    //     << " " << boundarypoint.size() << " "
+    //     << "double"
+    //     << "\n";
+    // for (int i = 0; i < boundarypoint.size(); ++i) {
+    //     double t1, t2, t3;
+    //     int u = boundarypoint[i];
+    //     t1 = new_v.col(u)[0];
+    //     t2 = new_v.col(u)[1];
+    //     t3 = new_v.col(u)[2];
 
-        os << t1 << " " << t2 << " " << t3 << "\n";
-        /* oss << 1 << " "<< i << "\n";*/
-        /*oss << 1 << "\n";*/
-    }
-    os << "\n";
-    os << "CELLS"
-        << " " << boundarypoint.size() << " " << 2 * boundarypoint.size() << "\n";
-    for (int i = 0; i < boundarypoint.size(); ++i) {
-        os << 1 << " " << i << "\n";
-        /*oss << 1 << "\n";*/
-    }
-    os << "\n";
-    os << "CELL_TYPES"
-        << " " << boundarypoint.size() << "\n";
-    for (int i = 0; i < boundarypoint.size(); ++i) {
-        /*oss << t1 << " " << t2 << " " << t3 << "\n";*/
-        /* oss << 1 << " "<< i << "\n";*/
-        os << 1 << "\n";
-    }
-    os.close();
+    //     os << t1 << " " << t2 << " " << t3 << "\n";
+    //     /* oss << 1 << " "<< i << "\n";*/
+    //     /*oss << 1 << "\n";*/
+    // }
+    // os << "\n";
+    // os << "CELLS"
+    //     << " " << boundarypoint.size() << " " << 2 * boundarypoint.size() << "\n";
+    // for (int i = 0; i < boundarypoint.size(); ++i) {
+    //     os << 1 << " " << i << "\n";
+    //     /*oss << 1 << "\n";*/
+    // }
+    // os << "\n";
+    // os << "CELL_TYPES"
+    //     << " " << boundarypoint.size() << "\n";
+    // for (int i = 0; i < boundarypoint.size(); ++i) {
+    //     /*oss << t1 << " " << t2 << " " << t3 << "\n";*/
+    //     /* oss << 1 << " "<< i << "\n";*/
+    //     os << 1 << "\n";
+    // }
+    // os.close();
     vector<int> need_increase;
     vector<int> relative_best_j;
     for (int i = 0; i < boundarypoint.size(); ++i) {
@@ -977,46 +977,46 @@ void fIxmesh::Fixmesh(load& mRes, int fix_hole, int local_layer, int iteration) 
                 bvertex.push_back(u0);
             }
         }*/
-        ofstream oss("C:\\Users\\Administrator\\Desktop\\1\\plate\\test2.vtk");
-        oss << "# vtk DataFile Version 2.0"
-            << "\n";
-        oss << "name, Created by Gmsh 4.11.2-git-c089f96d2 "
-            << "\n";
-        oss << "ASCII"
-            << "\n";
-        oss << "DATASET UNSTRUCTURED_GRID"
-            << "\n";
-        oss << "POINTS"
-            << " " << bvertex.size() << " "
-            << "double"
-            << "\n";
-        for (int i = 0; i < bvertex.size(); ++i) {
-            double t1, t2, t3;
-            int u = bvertex[i];
-            t1 = new_v.col(u)[0];
-            t2 = new_v.col(u)[1];
-            t3 = new_v.col(u)[2];
+        // ofstream oss("C:\\Users\\Administrator\\Desktop\\1\\plate\\test2.vtk");
+        // oss << "# vtk DataFile Version 2.0"
+        //     << "\n";
+        // oss << "name, Created by Gmsh 4.11.2-git-c089f96d2 "
+        //     << "\n";
+        // oss << "ASCII"
+        //     << "\n";
+        // oss << "DATASET UNSTRUCTURED_GRID"
+        //     << "\n";
+        // oss << "POINTS"
+        //     << " " << bvertex.size() << " "
+        //     << "double"
+        //     << "\n";
+        // for (int i = 0; i < bvertex.size(); ++i) {
+        //     double t1, t2, t3;
+        //     int u = bvertex[i];
+        //     t1 = new_v.col(u)[0];
+        //     t2 = new_v.col(u)[1];
+        //     t3 = new_v.col(u)[2];
 
-            oss << t1 << " " << t2 << " " << t3 << "\n";
-            /* oss << 1 << " "<< i << "\n";*/
-            /*oss << 1 << "\n";*/
-        }
-        oss << "\n";
-        oss << "CELLS"
-            << " " << bvertex.size() << " " << 2 * bvertex.size() << "\n";
-        for (int i = 0; i < bvertex.size(); ++i) {
-            oss << 1 << " " << i << "\n";
-            /*oss << 1 << "\n";*/
-        }
-        oss << "\n";
-        oss << "CELL_TYPES"
-            << " " << bvertex.size() << "\n";
-        for (int i = 0; i < bvertex.size(); ++i) {
-            /*oss << t1 << " " << t2 << " " << t3 << "\n";*/
-            /* oss << 1 << " "<< i << "\n";*/
-            oss << 1 << "\n";
-        }
-        oss.close();
+        //     oss << t1 << " " << t2 << " " << t3 << "\n";
+        //     /* oss << 1 << " "<< i << "\n";*/
+        //     /*oss << 1 << "\n";*/
+        // }
+        // oss << "\n";
+        // oss << "CELLS"
+        //     << " " << bvertex.size() << " " << 2 * bvertex.size() << "\n";
+        // for (int i = 0; i < bvertex.size(); ++i) {
+        //     oss << 1 << " " << i << "\n";
+        //     /*oss << 1 << "\n";*/
+        // }
+        // oss << "\n";
+        // oss << "CELL_TYPES"
+        //     << " " << bvertex.size() << "\n";
+        // for (int i = 0; i < bvertex.size(); ++i) {
+        //     /*oss << t1 << " " << t2 << " " << t3 << "\n";*/
+        //     /* oss << 1 << " "<< i << "\n";*/
+        //     oss << 1 << "\n";
+        // }
+        // oss.close();
 
         vector<int> compare(new_v.size(), 0);
         vector<int> error_vertex;

@@ -1,3 +1,8 @@
+# Install third-party dependencies using Conda.
+# ``` bash
+#   conda env create -f environment.yml
+#   conda activate quad
+# ```
 name: quad
 # channels:
 #   - conda-forge

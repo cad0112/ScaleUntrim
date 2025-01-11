@@ -7,18 +7,6 @@ ScaleUntrim is an open-source software package to reconstruct trimmed CAD models
 
 The software supports cmake build for Linux/Mac/Windows systems, which converts a trimmed CAD modal  `(.stp/.igs)` into an untrimmed NURBS `(.step)`.
 
-we recommend Visual Studio 2022 in Windows for compiling.
-
-## Install
-
-```
-git clone 
-mkdir build
-cd build
-cmake .. 
-make
-```
-
 ## External Dependencies
 
 - Boost
@@ -30,7 +18,7 @@ make
 All parameters can be adjusted in the `setting.config` file."
 
 ```text
-temp_dir: D:\\mergefit_v1\\io\\vs17\\temp1\\
+temp_dir: temp
 run_from: 0
 tri_mesh_tolerance: 1.e-4
 quad_face_num: -1
@@ -59,3 +47,22 @@ fit_tolerance: 1.e-2
 - <u>Haoyu Su</u>
 - <u>Shizhou Luo</u>
 - <u>Xiaodong Wei</u>
+
+## How to build and run
+
+### Platform : linux
+
+1. Build with CMake tool
+
+```bash
+./scripts/cmake.sh
+./scripts/make.sh
+```
+
+2. Run the example
+
+```bash
+./scripts/run_example.sh
+```
+
+3. Then you can find the output STEP file in the `./build/example` folder.

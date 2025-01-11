@@ -567,11 +567,11 @@ void load::ComputeE2E() {
 			}	
 		}
 	}
-	std::ofstream osss("C:\\Users\\Administrator\\Desktop\\compare\\E2E2.txt");
-	for (int i = 0; i < E2E.size(); ++i) {
-		osss << E2E[i] << "\n";
-	}
-	osss.close();
+	// std::ofstream osss("C:\\Users\\Administrator\\Desktop\\compare\\E2E2.txt");
+	// for (int i = 0; i < E2E.size(); ++i) {
+	// 	osss << E2E[i] << "\n";
+	// }
+	// osss.close();
 }
 void load::ComputeSmoothNormal() {
 

@@ -8848,21 +8848,21 @@ void Optimizer::optimize_positions_sharp(
         }
     }
     return;
-        std::ofstream os("/Users/jingwei/Desktop/sharp.obj");
-    for (int i = 0; i < loops.size(); ++i) {
-        for (auto& v : loops[i]) {
-            os << "v " << v[0] << " " << v[1] << " " << v[2] << "\n";
-        }
-    }
-        int offset = 1;
-    for (int i = 0; i < loops.size(); ++i) {
-        for (int j = 0; j < loops[i].size() - 1; ++j) {
-            os << "l " << offset + j << " " << offset + j + 1 << "\n";
-        }
-        offset += loops[i].size();
-    }
-    os.close();
-    exit(0);
+    //     std::ofstream os("/Users/jingwei/Desktop/sharp.obj");
+    // for (int i = 0; i < loops.size(); ++i) {
+    //     for (auto& v : loops[i]) {
+    //         os << "v " << v[0] << " " << v[1] << " " << v[2] << "\n";
+    //     }
+    // }
+    //     int offset = 1;
+    // for (int i = 0; i < loops.size(); ++i) {
+    //     for (int j = 0; j < loops[i].size() - 1; ++j) {
+    //         os << "l " << offset + j << " " << offset + j + 1 << "\n";
+    //     }
+    //     offset += loops[i].size();
+    // }
+    // os.close();
+    // exit(0);
 }
 
 

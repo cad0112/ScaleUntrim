@@ -1,4 +1,4 @@
-#include"quadgeneration.h"
+#include "quadgeneration.h"
 #include "config.hpp"
 #include "field-math.hpp"
 #include "optimizer.hpp"
@@ -166,27 +166,27 @@ void quadgeneration::QMG(std::string input_tri, std::string output_quad, std::st
 
 	
 
-    char userInput;
-    if (faces == -1) {
-        std::cout << "The magnitude_factor is initial value " << "\n";
-    }
-    else {
-        std::cout << "The magnitude_factor is " << faces <<"\n";
-    }
-    std::cout << "please check the quad mesh is correct or not"
-              << "\n";
-    std::cout << "if it is correct  please cin Y/y"
-              << "\n";
-    std::cout << "if wrong  please change the magnitude_factor in setting.config "
-              << "\n";
-	std::cout << "Suggestion: you can try the value from 1 to 2 like 1 , 1.1 , 1.2 , 1.3 "<< " and so on...\n";
-    std::cin >> userInput;
-    if (userInput == 'Y' || userInput == 'y') {
-        std::cout << "Continuing...." << std::endl;
-    } else {
-        std::cout << "Stopping the program." << std::endl;
-        exit(EXIT_SUCCESS);
-    }
+    // char userInput;
+    // if (faces == -1) {
+    //     std::cout << "The magnitude_factor is initial value " << "\n";
+    // }
+    // else {
+    //     std::cout << "The magnitude_factor is " << faces <<"\n";
+    // }
+    // std::cout << "please check the quad mesh is correct or not"
+    //           << "\n";
+    // std::cout << "if it is correct  please cin Y/y"
+    //           << "\n";
+    // std::cout << "if wrong  please change the magnitude_factor in setting.config "
+    //           << "\n";
+	// std::cout << "Suggestion: you can try the value from 1 to 2 like 1 , 1.1 , 1.2 , 1.3 "<< " and so on...\n";
+    // std::cin >> userInput;
+    // if (userInput == 'Y' || userInput == 'y') {
+    //     std::cout << "Continuing...." << std::endl;
+    // } else {
+    //     std::cout << "Stopping the program." << std::endl;
+    //     exit(EXIT_SUCCESS);
+    // }
 	Ver = field.O_compact;
     Vector4i quad;
     for (int i = 0; i < field.F_compact.size(); ++i) {

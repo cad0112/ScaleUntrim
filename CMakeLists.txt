@@ -56,9 +56,9 @@ set(CMAKE_LINKER_FLAGS_DEBUG "${CMAKE_LINKER_FLAGS_DEBUG}")
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fopenmp -Wno-int-in-bool-context -Wno-sign-compare")
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=address")
+    # set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=address")
     set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS}")
-    set(CMAKE_LINKER_FLAGS_DEBUG "${CMAKE_LINKER_FLAGS_DEBUG} -fsanitize=address")
+    # set(CMAKE_LINKER_FLAGS_DEBUG "${CMAKE_LINKER_FLAGS_DEBUG} -fsanitize=address")
 endif()
 
 if(MSVC)
@@ -79,6 +79,7 @@ include_directories(${GLUT_INCLUDE_DIRS})
 include_directories(${LEMON_INCLUDE_DIRS})
 include_directories(${TBB_INCLUDE_DIRS})
 include_directories(${GUROBI_INCLUDE_DIRS})
+include_directories(${OpenCASCADE_INCLUDE_DIR})
 
 if (BUILD_PERFORMANCE_TEST)
     add_definitions(-DPERFORMANCE_TEST)
@@ -110,12 +111,13 @@ file(GLOB QuadriFlow_headers "include/*.h" "include/*.hpp"
 file(GLOB QuadriFlow_sources "source/*.cpp"
     "mergefit/source/*.cpp")
 
-# add_library(${CMAKE_PROJECT_NAME} SHARED ${QuadriFlow_sources})
+add_library(${CMAKE_PROJECT_NAME} STATIC ${QuadriFlow_sources})
 
-add_executable(${CMAKE_PROJECT_NAME} ${QuadriFlow_sources})
-
-target_link_libraries(${CMAKE_PROJECT_NAME}
+set(ScaleUntrim_LIBRARIES
+    ${CMAKE_PROJECT_NAME}
     ${TBB_LIBRARIES}
     ${LEMON_LIBRARIES}
     ${GUROBI_LIBRARIES}
     ${OpenCASCADE_LIBRARIES})
+
+add_subdirectory(example)

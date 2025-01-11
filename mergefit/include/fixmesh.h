@@ -1,4 +1,4 @@
-#pragma execution_character_set("utf-8")
+
 
 #ifndef __FIXMESH_H
 #define __FIXMESH_H
