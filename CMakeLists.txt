@@ -68,19 +68,6 @@ if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 /wd4267 /wd4244 /wd4018 /wd4800") 
 endif()
 
-include_directories(include)
-include_directories(3rd/pcg32)
-include_directories(3rd/pss)
-include_directories(mergefit/include)
-include_directories(${Boost_INCLUDE_DIRS})
-include_directories(${EIGEN_INCLUDE_DIRS})
-include_directories(${GLM_INCLUDE_DIRS})
-include_directories(${GLUT_INCLUDE_DIRS})
-include_directories(${LEMON_INCLUDE_DIRS})
-include_directories(${TBB_INCLUDE_DIRS})
-include_directories(${GUROBI_INCLUDE_DIRS})
-include_directories(${OpenCASCADE_INCLUDE_DIR})
-
 if (BUILD_PERFORMANCE_TEST)
     add_definitions(-DPERFORMANCE_TEST)
 endif(BUILD_PERFORMANCE_TEST)
@@ -105,19 +92,29 @@ if (BUILD_FREE_LICENSE)
     add_definitions(-DEIGEN_MPL2_ONLY)
 endif(BUILD_FREE_LICENSE)
 
-file(GLOB QuadriFlow_headers "include/*.h" "include/*.hpp"
-    "mergefit/include/*.h")
-
-file(GLOB QuadriFlow_sources "source/*.cpp"
-    "mergefit/source/*.cpp")
-
-add_library(${CMAKE_PROJECT_NAME} STATIC ${QuadriFlow_sources})
-
 set(ScaleUntrim_LIBRARIES
     ${CMAKE_PROJECT_NAME}
     ${TBB_LIBRARIES}
     ${LEMON_LIBRARIES}
     ${GUROBI_LIBRARIES}
-    ${OpenCASCADE_LIBRARIES})
+    ${OpenCASCADE_LIBRARIES}
+)
 
+set(ScaleUntrim_INC_DIRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/3rd/pcg32
+    ${CMAKE_CURRENT_SOURCE_DIR}/3rd/pss
+    ${Boost_INCLUDE_DIRS}
+    ${EIGEN_INCLUDE_DIRS}
+    ${GLM_INCLUDE_DIRS}
+    ${GLUT_INCLUDE_DIRS}
+    ${LEMON_INCLUDE_DIRS}
+    ${TBB_INCLUDE_DIRS}
+    ${GUROBI_INCLUDE_DIRS}
+    ${OpenCASCADE_INCLUDE_DIR}
+)
+
+# build source
+add_subdirectory(source)
+
+# build example
 add_subdirectory(example)

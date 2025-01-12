@@ -3,7 +3,7 @@
 
 void print_usage(const char *exe_name)
 {
-    printf("Usage : %s -i {cad_in.stp} -o {cad_out.stp} -c {setting.config}", exe_name);
+    printf("Usage : %s -i {cad_in.stp} -o {cad_out.stp} -c {setting.config}\n", exe_name);
 }
 
 int main(int argc, char *argv[])

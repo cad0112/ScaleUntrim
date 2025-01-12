@@ -6,8 +6,9 @@ configure_file(
     ${CMAKE_CURRENT_BINARY_DIR}/setting.config
 )
 
-# generate test exe
-set(test_src test.cpp)
-add_executable(test ${test_src})
-target_link_libraries(test
+# build example
+include_directories(${ScaleUntrim_INC_DIRS})
+set(untrim_src untrim.cpp)
+add_executable(untrim ${untrim_src})
+target_link_libraries(untrim
                       ${ScaleUntrim_LIBRARIES})
