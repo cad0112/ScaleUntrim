@@ -1,3 +1,6 @@
+/**
+ * @brief Convert a trimmed CAD modal into an untrimmed NURBS model
+ */
 #include <iostream>
 #include "merge_fit.h"
 

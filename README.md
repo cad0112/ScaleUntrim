@@ -62,7 +62,7 @@ fit_tolerance: 1.e-2
 2. Run the example
 
 ```bash
-./scripts/run_example.sh
+./scripts/run_untrim.sh
 ```
 
 3. Then you can find the output STEP file in the `./build/example` folder.
