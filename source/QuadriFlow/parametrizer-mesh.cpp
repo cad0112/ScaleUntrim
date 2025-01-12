@@ -8,7 +8,6 @@
 #include "config.hpp"
 #include "dedge.hpp"
 #include "field-math.hpp"
-#include "loader.hpp"
 #include "merge-vertex.hpp"
 #include "parametrizer.hpp"
 #include "subdivide.hpp"
@@ -54,8 +53,9 @@ void Parametrizer::NormalizeMesh() {
     //    merge_close(V, F, 1e-6);
 }
 
-void Parametrizer::Load(const char* filename) {
-    load(filename, V, F);
+void Parametrizer::SetTriMesh(const Eigen::MatrixXd& iV, const Eigen::MatrixXi& iF) {
+    V = iV;
+    F = iF;
     NormalizeMesh();
 }
 
@@ -788,52 +788,6 @@ void Parametrizer::FixValence()
     return;
 }
 
-void Parametrizer::OutputMesh(const char* obj_name) {
-    std::ofstream os(obj_name);
-    os << "# vtk DataFile Version 2.0"
-       << "\n";
-    os << "name, Created by Gmsh 4.11.2-git-c089f96d2 "
-       << "\n";
-    os << "ASCII"
-       << "\n";
-    os << "DATASET UNSTRUCTURED_GRID"
-       << "\n";
-    os << "POINTS"
-       << " " << O_compact.size() << " "
-       << "double"
-       << "\n";
-
-    for (int i = 0; i < O_compact.size(); ++i) {
-        auto t = O_compact[i] * this->normalize_scale + this->normalize_offset;
-
-        os << t[0] << " " << t[1] << " " << t[2] << "\n";
-    }
-    os << "\n";
-
-    std::vector<int> quad{};
-    for (int i = 0; i < F_compact.size(); ++i) {
-        if (F_compact[i][0] != -1) {
-            quad.push_back(F_compact[i][0]);
-            quad.push_back(F_compact[i][1]);
-            quad.push_back(F_compact[i][2]);
-            quad.push_back(F_compact[i][3]);
-        }
-    }
-    int a = quad.size() / 4;
-    os << "CELLS"
-       << " " << a << " " << 5 * a << "\n";
-    for (int i = 0; i < a; ++i) {
-        os << 4 << " " << quad[4 * i] << " " << quad[4 * i + 1] << " " << quad[4 * i + 2] << " "
-           << quad[4 * i + 3] << "\n";
-    }
-    os << "\n";
-    os << "CELL_TYPES"
-       << " " << a << "\n";
-    for (int i = 0; i < a; ++i) {
-        os << 9 << "\n";
-    }
-    os.close();
-}
 void Parametrizer::Outputpatch(std::string file_name, std::string txt_name) {
     int numFiles = patch_compact.size();  
     std::string filePrefix = file_name;  

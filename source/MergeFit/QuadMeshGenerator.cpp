@@ -1,43 +1,55 @@
-#include "quadgeneration.h"
-#include "config.hpp"
-#include "field-math.hpp"
-#include "optimizer.hpp"
-#include "parametrizer.hpp"
+#include "QuadMeshGenerator.h"
+
+#ifdef WITH_TBB
+#include <tbb/tbb.h>
+#endif
+
+// std includes
+#include <condition_variable>
+#include <atomic>
+#include <list>
+#include <map>
+#include <set>
+#include <unordered_set>
 #include <stdlib.h>
 #include <iostream>
+
+// quadriflow includes
+#include "adjacent-matrix.hpp"
+#include "disajoint-tree.hpp"
+#include "field-math.hpp"
+#include "hierarchy.hpp"
+#include "post-solver.hpp"
+#include "serialize.hpp"
+#include "config.hpp"
+#include "optimizer.hpp"
+#include "parametrizer.hpp"
 
 #ifdef WITH_CUDA
 #include <cuda_runtime.h>
 #endif
 
+using namespace qflow;
 
+namespace mft {
+    
+QuadMeshPtr QuadMeshGenerator::GenMesh(TriMeshPtr& tri_mesh, double magnitude_factor, int preserve_sharp, int preserve_boundary, int minimum_cost, int adaptive_scale, double angle) 
+{
+    QuadMeshPtr quad_mesh = std::make_shared<QuadMesh>();
+    Parametrizer &field = quad_mesh->Field();
 
-namespace qflow {
-void quadgeneration::QMG(std::string input_tri, std::string output_quad, std::string output_patch_file,
-         std::string output_patch_information, double magnitude_factor, int preserve_sharp,
-         int preserve_boundary, int minimum_cost, int adaptive_scale,double angle) {
-    Parametrizer field;
+    // load tri mesh
+    if (tri_mesh == nullptr) 
+        return nullptr;
+    field.SetTriMesh(tri_mesh->VMat(), tri_mesh->FMat());
+
     int t1, t2;
-    std::string input_obj, output_obj, output_patch, output_txt;
-
-    input_obj = input_tri;
-    output_obj = output_quad;
-    output_patch = output_patch_file;
-    output_txt = output_patch_information;
     double faces = magnitude_factor;
-    printf("%f %s %s\n", faces, input_obj.c_str(), output_obj.c_str());
-    if (input_obj.size() >= 1) {
-        field.Load(input_obj.c_str());
-    } else {
-        assert(0);
-        // field.Load((std::string(DATA_PATH) + "/fertility.obj").c_str());
-    }
-
     field.flag_preserve_sharp = 0;
-	/*field.flag_preserve_sharp = 0;*/
     field.flag_preserve_boundary = preserve_boundary;
     field.flag_minimum_cost_flow = 1;
     field.flag_adaptive_scale = 0;
+
     printf("Initialize...\n");
     t1 = GetCurrentTime64();
     field.Initialize(faces, angle);
@@ -155,16 +167,6 @@ void quadgeneration::QMG(std::string input_tri, std::string output_quad, std::st
     field.ComputeIndexMap();
     t2 = GetCurrentTime64();
     printf("Indexmap Use %lf seconds\n", (t2 - t1) * 1e-3);
-    printf("Writing the file...\n");
-    if (output_obj.size() < 1) {
-        assert(0);
-        // field.OutputMesh((std::string(DATA_PATH) + "/result.obj").c_str());
-    } else {
-        
-       field.OutputMesh(output_obj.c_str());
-    }
-
-	
 
     // char userInput;
     // if (faces == -1) {
@@ -187,25 +189,22 @@ void quadgeneration::QMG(std::string input_tri, std::string output_quad, std::st
     //     std::cout << "Stopping the program." << std::endl;
     //     exit(EXIT_SUCCESS);
     // }
+
+    // record quad mesh infomation
 	Ver = field.O_compact;
-    Vector4i quad;
     for (int i = 0; i < field.F_compact.size(); ++i) {
-        if (field.F_compact[i][0] == -1) continue;
-        quad = field.F_compact[i];
-        Fer.push_back(quad);
+        if (field.F_compact[i][0] == -1)
+            continue;
+        Fer.push_back(field.F_compact[i]);
     }
-    Optimizer::extract_patch(field.hierarchy, field.F_new, field.V_new, field.N_new, field.Q_new,
-                             field.Vset_new, field.O_compact_new, field.F_compact_new,
-                             field.V2E_compact_new, field.E2E_compact_new, field.mScale_new,
-                             field.diffs_new, field.diff_count_new, field.patch_compact,
-                             field.sharp_o_new, field.compact_sharp_constraints_new,
-                             field.boundary_o_new, field.compact_boundary_constraints_new);
-    field.Outputpatch(output_patch.c_str(), output_txt.c_str());
-    printf("finish...\n");
+
     //	field.LoopFace(2);
+    return quad_mesh;
 }
-void quadgeneration::meshinformation(std::vector<Vector3d> &V_, std::vector<Vector4i> &F_){
+
+void QuadMeshGenerator::meshinformation(std::vector<Vector3d> &V_, std::vector<Vector4i> &F_){
     V_ = Ver;
     F_ = Fer;
 }
+
 }  // namespace qflow

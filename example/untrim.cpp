@@ -2,11 +2,11 @@
  * @brief Convert a trimmed CAD modal into an untrimmed NURBS model
  */
 #include <iostream>
-#include "merge_fit.h"
+#include "CmdMergeFit.h"
 
 void print_usage(const char *exe_name)
 {
-    printf("Usage : %s -i {cad_in.stp} -o {cad_out.stp} -c {setting.config}\n", exe_name);
+    printf("Usage : %s -i <cad_in.stp> -o <cad_out.stp> -c <setting.config>\n", exe_name);
 }
 
 int main(int argc, char *argv[])
@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
     }
 
     // Run MergeFit
-    MergeFit mf;
+    mft::CmdMergeFit mf;
     mf.set_surface_degree(3);
     mf.run(cad_in, cad_out, config_file);
 

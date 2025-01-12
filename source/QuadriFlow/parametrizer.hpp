@@ -50,9 +50,11 @@ struct ExpandInfo {
 class Parametrizer {
    public:
     Parametrizer() {}
+
     // Mesh Initialization
-    void Load(const char* filename);
+    void SetTriMesh(const Eigen::MatrixXd& iV, const Eigen::MatrixXi& iF);
     void NormalizeMesh();
+    
     void ComputeMeshStatus();
     void ComputeSmoothNormal();
     void ComputeSharpEdges(double angle);
@@ -87,7 +89,6 @@ class Parametrizer {
                                std::vector<int>& face, std::vector<DEdge>& edge_values,
                                std::vector<Vector3i>& F2E, std::vector<Vector2i>& E2F,
                                std::vector<Vector2i>& EdgeDiff, std::vector<Vector3i>& FQ);
-    void OutputMesh(const char* obj_name);
     void Outputpatch(std::string file_name, std::string txt_name);
 
     std::map<int, int> singularities;  // map faceid to valence (1 (valence=3) or 3(valence=5))
@@ -165,11 +166,11 @@ class Parametrizer {
 
     int compact_num_v;
     std::vector<std::vector<int>> Vset;
-    std::vector<Vector3d> O_compact;
+    std::vector<Vector3d> O_compact; // vertex_list
     std::vector<std::vector<std::vector<int>>> patch_compact;
     std::vector<Vector3d> Q_compact;
     std::vector<Vector3d> N_compact;
-    std::vector<Vector4i> F_compact;
+    std::vector<Vector4i> F_compact; // quad_list
     std::set<std::pair<int, int>> Quad_edges;
     std::vector<int> V2E_compact;
     std::vector<int> E2E_compact;

@@ -1,5 +1,5 @@
-#ifndef OPENSURF_MERGEFIT_H
-#define OPENSURF_MERGEFIT_H
+#ifndef MFT_MERGEFIT_H
+#define MFT_MERGEFIT_H
 
 #include "cad2tri.h"
 #include "fixmesh.h"
@@ -7,10 +7,15 @@
 #include "GenerateShell.h"
 #include <string>
 
-class MergeFit
+namespace mft{
+
+class CmdMergeFit
 {
 public:
-    MergeFit();
+    CmdMergeFit();
+    
+    int run(const std::string& cad_file_in, const std::string& cad_file_out, const std::string& config);
+
 
     void set_temporary_directory(const string& dir);
     void set_run_from(int run_id);
@@ -32,7 +37,6 @@ public:
     int generate_quad_mesh_from_tri_mesh(const std::string& tri_fix, const std::string& patch);
     int fit_NURBS_from_quad_patch(const std::string& patch, const std::string& surf);
     int write_CAD_to_step(const std::string& surf, const std::string& cad_out);
-    int run(const std::string& cad_file_in, const std::string& cad_file_out, const std::string& config);
     int run(const std::string& cad_file_in, const std::string& cad_file_out);
 
 private:
@@ -65,4 +69,6 @@ private:
     double fit_err;
 };
 
-#endif //OPENSURF_MERGEFIT_H
+}
+
+#endif //MFT_MERGEFIT_H

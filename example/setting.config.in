@@ -2,7 +2,7 @@ temp_dir: @test_temp_dir@
 run_from: 0
 tri_mesh_tolerance: 1.e-4
 quad_face_num: -1
-magnitude_factor: 0.5
+magnitude_factor: 0.4
 angle_for_sharp: 60
 fit_tolerance: 1.e-2
 area_tolerance: 5.e-2
